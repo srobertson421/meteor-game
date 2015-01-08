@@ -174,6 +174,7 @@ Enemy.prototype = {
             player.lives--;
             
         } else {
+            Meteor.call('modifyPlayerData', this.game.global.score);
             this.game.global.music.stop();
             this.game.time.events.add(1000, this.startMenu, this);
         }

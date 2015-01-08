@@ -1,20 +1,33 @@
 // Server-side data publish for client access
 Meteor.publish('players', function() {
 	var currentUserId = this.userId;
-	return Players.find(currentUserId);
+	return Players.find({playerId: currentUserId});
 });
 
 // Server-side methods for data
 Meteor.methods({
-	'insertPlayerData': function() {
+	'insertPlayerData': function(playerScore) {
 		var currentUserId = Meteor.userId();
-		//Players.insert({});
+		Players.insert({
+			_id : currentUserId,
+			score: playerScore
+		});
 	},
 	'removePlayerData': function() {
 		var currentUserId = Meteor.userId();
-		//Players.remove();
+		Players.remove(currentUserId);
 	},
-	'modifyPlayerData': function(player, playerData) {
-		//Players.update(player, playerData);
+	'modifyPlayerData': function(playerScore) {
+		var playerId = Meteor.userId();
+		var player = Players.find(playerId).fetch();
+		if (player.score < playerScore) {
+			Players.update(playerId, {_id: playerId, score: playerScore});
+		} else {
+			console.log('Did not beat the high score!')
+			return
+		}
+	},
+	'log': function(data) {
+		console.log(data);
 	}
 });
