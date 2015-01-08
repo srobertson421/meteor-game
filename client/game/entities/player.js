@@ -11,6 +11,7 @@ Player = function(game) {
     this.explosionSound = null;
     this.lives = 3;
     this.scoreText = null;
+    this.highScoreText = null;
 };
 
 Player.prototype = {
@@ -67,6 +68,7 @@ Player.prototype = {
         
         this.game.global.score = 0;
         this.scoreText = this.game.add.text(32,this.game.world.height - 50, 'score: ' + this.game.global.score, { font: '25px Arial', fill: '#ffffff' });
+        this.highScoreText = this.game.add.text(this.game.world.width / 2 - 10,this.game.world.height - 50, 'High Score: ' + this.game.global.highScore, { font: '25px Arial', fill: '#ffffff' });
         
     },
     

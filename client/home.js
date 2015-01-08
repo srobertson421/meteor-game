@@ -1,4 +1,4 @@
-Meteor.subscribe('players');
+//Meteor.subscribe('players');
 
 /*Template.home.helpers({
   'player': function() {
